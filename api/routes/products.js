@@ -110,7 +110,7 @@ router.patch('/:productId', (req, res, next) => {
 router.delete('/:productId', (req, res, next) => {
     const id = req.params.productId;
     Product.findByIdAndRemove({ _id : id})
-        .then(result => {
+        .then(() => {
             res.status(200).json({
                 message : "product was deleted successfully!",
                 details:{
