@@ -1,0 +1,32 @@
+{
+  "name": "rest-api-with-nodejs",
+  "version": "1.0.0",
+  "description": "this a simple nodejs rest api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "keywords": [
+    "rest",
+    "api\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[C\u001b[D",
+    "my",
+    "first",
+    "rest",
+    "api",
+    "with",
+    "node",
+    "js"
+  ],
+  "author": "EL BAHLOUL Abdelali",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.5",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
