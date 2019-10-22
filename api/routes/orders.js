@@ -76,7 +76,8 @@ router.post("/", (req, res, next) => {
 router.get('/:orderId', (req, res, next) => {
 
     const id = req.params.orderId;
-    Order.findById(id).select('_id productId quantite').exec()
+    Order.findById(id).select('_id productId quantite')
+        .populate('productId', 'name price').exec()
         .then( doc => {
             if(doc){
                 res.status(200).json(doc)
