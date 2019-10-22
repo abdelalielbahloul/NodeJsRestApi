@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const morgan = require('morgan'); //it's handling all our requests that we did like a history of our requests
@@ -6,7 +7,7 @@ const mongoose = require('mongoose'); //import mongoose package to connect with 
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
-const url = 'mongodb://localhost:27017/sygemt';
+// const url = 'mongodb://localhost:27017/sygemt';
 const options = {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -21,7 +22,7 @@ const options = {
     socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
     family: 4 // Use IPv4, skip trying IPv6
   };
-mongoose.connect(url, options).catch(error => handleError(error));
+mongoose.connect(process.env.DATABASE, options).catch(error => handleError(error));
 mongoose.Promise = global.Promise;
 
 app.use(morgan('dev'));

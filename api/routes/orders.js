@@ -80,7 +80,11 @@ router.get('/:orderId', (req, res, next) => {
         .populate('productId', 'name price').exec()
         .then( doc => {
             if(doc){
-                res.status(200).json(doc)
+                res.status(200).json({
+                    _id:doc._id,
+                    quantite: doc.quantite,
+                    product:doc.productId
+                })
             }else{
                 res.status(404).json({ message: 'Not found' })
             }
