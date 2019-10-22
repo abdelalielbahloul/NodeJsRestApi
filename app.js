@@ -26,6 +26,7 @@ mongoose.connect(process.env.DATABASE, options).catch(error => handleError(error
 mongoose.Promise = global.Promise;
 
 app.use(morgan('dev'));
+app.use('/uploads',express.static('uploads'));  //add a midellware to make the folder uploads public for access in every where ( and display images in url) 
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
