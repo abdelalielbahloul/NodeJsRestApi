@@ -7,14 +7,15 @@ var url = 'http://localhost:3000/orders';
 
 router.get('/', (req, res, next) => {
 
-    Order.find().select('_id productId quantite').exec()
+    Order.find().select('_id productId quantite')
+        .populate('productId', 'name price').exec()
         .then( docs => {
             const response = {
                 count : docs.length,
                 orders: docs.map(doc => {
                     return {
                         _id : doc._id,
-                        productId: doc.product,
+                        product: doc.productId,
                         quantite: doc.quantite,
                         details: {
                             method: 'GET',
@@ -90,14 +91,14 @@ router.get('/:orderId', (req, res, next) => {
         })
 });
 
-router.patch('/:orderId', (req, res, next) => {
+// router.patch('/:orderId', (req, res, next) => {
 
-    const id = req.params.orderId;
-    const newOrder = req.body;
-    res.status(200).json({
-        message : 'orders updated',
-    })
-});
+//     const id = req.params.orderId;
+//     const newOrder = req.body;
+//     res.status(200).json({
+//         message : 'orders updated',
+//     })
+// });
 
 router.delete('/:orderId', (req, res, next) => {
 
@@ -111,7 +112,7 @@ router.delete('/:orderId', (req, res, next) => {
                     method: 'POST',
                     url: `${url}`,
                     body:{
-                        productId: 'ObjectId()',
+                        productId: 'ObjectId(id)',
                         quantite: 'Number'
                     }
 
