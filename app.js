@@ -5,8 +5,10 @@ const morgan = require('morgan'); //it's handling all our requests that we did l
 const bodyParser = require('body-parser'); // it's uses to parse an incoming requests
 const mongoose = require('mongoose'); //import mongoose package to connect with db
 
+//all routes that we have
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+const userRoutes = require('./api/routes/users');
 // const url = 'mongodb://localhost:27017/sygemt';
 const options = {
     useNewUrlParser: true,
@@ -46,9 +48,11 @@ app.use( (req, res, next) => {
 
     next();
 });
-//routes of our rest api
+
+//the url of our rest api
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
+app.use('/users', userRoutes);
 
 
 //a error for an incoming request doesnt exist in api/routes
