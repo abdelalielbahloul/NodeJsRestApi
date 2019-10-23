@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const checkAuth = require('../middleware/check-auth');
-
 
 exports.register =  (req, res, next) => {
     bcryptjs.hash(req.body.password, 10, (err, hash) => {
@@ -16,16 +14,17 @@ exports.register =  (req, res, next) => {
            
         }else{
             //adding a random number to our user's id
-            let prefix = Math.floor(Math.random() * 100)
+            // let prefix = Math.floor(Math.random() * 100)
  
             const user = new User({
-                _id : `${prefix}_${new mongoose.Types.ObjectId()}`, 
+                _id : new mongoose.Types.ObjectId(), 
                 email : req.body.email,
-                password : hash
+                password : hash,
+                role: 'member'
             });
             user.save()
                 .then( result => {
-                    console.log(result);
+                    // console.log(result);
 
                     res.status(201).json({
                         message: 'User created successfully!'
@@ -91,8 +90,11 @@ exports.login = (req, res, next) => {
         });
 };
 
-exports.delete = checkAuth, (req, res, next) => {
-    User.deleteOne({ _id: req.params.userId}, errors => {
+exports.delete = (req, res, next) => {
+
+    const id = req.params.userId;
+    User.deleteOne({ _id: id}, errors => {
+
         if(errors){
             res.status(404).json({
                 message: "User not found!"
@@ -101,7 +103,8 @@ exports.delete = checkAuth, (req, res, next) => {
         
     })
     .exec()
-    .then(result => {
+    .then( () => {
+
         res.status(200).json({
             message: "User has been deleted!"
         })
