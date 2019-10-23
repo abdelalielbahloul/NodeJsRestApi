@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
+const checkAuth = require('../middleware/check-auth');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, './uploads/')
@@ -60,13 +61,9 @@ router.get('/', (req, res, next) => {
                 error: err
             });
         });
-
-    // res.status(200).json({
-    //     message : 'This inside a req /product get methode'
-    // })
 });
 
-router.post('/', upload.single('productImage'), (req, res, next) => {
+router.post('/',  checkAuth, upload.single('productImage'), (req, res, next) => {
 
     console.log(req.file);
     const product =  new Product({
@@ -120,7 +117,7 @@ router.get('/:productId', (req, res, next) => {
         });
 });
 
-router.patch('/:productId', (req, res, next) => {
+router.patch('/:productId', checkAuth, (req, res, next) => {
    const id = req.params.productId;
    const newProduct = req.body;
    Product.updateOne({ _id : id}, { $set: newProduct}).exec()
@@ -142,7 +139,7 @@ router.patch('/:productId', (req, res, next) => {
   
 });
 
-router.delete('/:productId', (req, res, next) => {
+router.delete('/:productId', checkAuth, (req, res, next) => {
     const id = req.params.productId;
     Product.findByIdAndRemove({ _id : id})
         .then(() => {

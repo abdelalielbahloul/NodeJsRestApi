@@ -51,7 +51,7 @@ router.post('/signin', (req, res, next) => {
         .then( user => {
             if(user.length < 1){
                 res.status(401).json({
-                    message: 'Auth faild!'
+                    message: 'Auth failed!'
                 })
             }
             bcryptjs.compare(req.body.password, user[0].password, (er, result) => {

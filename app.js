@@ -9,9 +9,10 @@ const mongoose = require('mongoose'); //import mongoose package to connect with 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 const userRoutes = require('./api/routes/users');
+mongoose.set('useNewUrlParser', true);
 // const url = 'mongodb://localhost:27017/sygemt';
 const options = {
-    useNewUrlParser: true,
+    useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: true,
     autoIndex: true, // Don't build indexes
