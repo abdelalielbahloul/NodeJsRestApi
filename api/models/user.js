@@ -5,7 +5,7 @@ here we create an model to our user how are
 const mongoose = require('mongoose');
 
 const userScheme = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId, //we use a propriete of mongosse to give for any order an id like 'ad5h5jd5jsl5jddk8kd'
+    _id: { type: String, required: true}, //we use a propriete of mongosse to give for any order an id like 'ad5h5jd5jsl5jddk8kd'
     email: { type: String, 
         required: true, 
         unique: true,

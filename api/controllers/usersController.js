@@ -15,8 +15,11 @@ exports.register =  (req, res, next) => {
             }
            
         }else{
+            //adding a random number to our user's id
+            let prefix = Math.floor(Math.random() * 100)
+ 
             const user = new User({
-                _id : new mongoose.Types.ObjectId(),
+                _id : `${prefix}_${new mongoose.Types.ObjectId()}`, 
                 email : req.body.email,
                 password : hash
             });
