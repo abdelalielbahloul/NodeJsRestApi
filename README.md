@@ -3,7 +3,7 @@
 # usage 
 after cloning:
 + `npm i`
-+ Run `touch .env` and configure your environment variables like in `.envExample`
++ Run `touch .env` and configure your environment variables like in `.env.example`
 + `npm start`
 NB. it can throw an error if you are not install nodemon try to install it globaly or in you project 
 + Run `npm i -g nodemon` or `npm i nodemon --save-dev`
