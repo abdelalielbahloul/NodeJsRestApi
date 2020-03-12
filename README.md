@@ -7,3 +7,5 @@ after cloning:
 + `npm start`
 NB. it can throw an error if you are not install nodemon try to install it globaly or in you project 
 + Run `npm i -g nodemon` or `npm i nodemon --save-dev`
+
+[![Coverage Status](https://coveralls.io/repos/github/abdelalielbahloul/NodeJsRestApi/badge.png?branch=master)](https://coveralls.io/github/abdelalielbahloul/NodeJsRestApi?branch=master)
