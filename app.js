@@ -17,7 +17,7 @@ var moesifMiddleware = moesif({
   identifyUser: function (req, res) {
     return req.user ? req.user.id : undefined;
   },
-  getSessionToken: function (req, res) {
+  getSessionToken: (req, res) => {
     return req.headers['Authorization'];
   }
 });
