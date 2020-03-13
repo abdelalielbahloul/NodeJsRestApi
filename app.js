@@ -17,6 +17,9 @@ var moesifMiddleware = moesif({
   identifyUser: function (req, res) {
     return req.user ? req.user.id : undefined;
   },
+  getSessionToken: function (req, res) {
+    return req.headers['Authorization'];
+  }
 });
 
 //all routes that we have
@@ -42,6 +45,8 @@ const options = {
 mongoose.connect(process.env.DATABASE, options).catch(error => handleError(error));
 mongoose.Promise = global.Promise;
 
+// Skip this step if you don't want to capture outgoing API calls
+moesifMiddleware.startCaptureOutgoing();
 app.use(morgan('tiny'));
 app.use('/uploads',express.static('uploads'));  //add a midellware to make the folder uploads public for access in every where ( and display images in url) 
 app.use(bodyParser.urlencoded({ extended: false}));
