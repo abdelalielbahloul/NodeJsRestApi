@@ -4,6 +4,20 @@ const app = express();
 const morgan = require('morgan'); //it's handling all our requests that we did like a history of our requests
 const bodyParser = require('body-parser'); // it's uses to parse an incoming requests
 const mongoose = require('mongoose'); //import mongoose package to connect with db
+var moesif = require('moesif-express');
+
+// 2. Set the options, the only required field is applicationId
+var moesifMiddleware = moesif({
+  applicationId: process.env.APP_ID,
+  
+  // Set to false if you don't want to capture payloads
+  logBody: true,
+
+  // Optional hook to link API calls to users
+  identifyUser: function (req, res) {
+    return req.user ? req.user.id : undefined;
+  },
+});
 
 //all routes that we have
 const productRoutes = require('./api/routes/products');
@@ -28,10 +42,12 @@ const options = {
 mongoose.connect(process.env.DATABASE, options).catch(error => handleError(error));
 mongoose.Promise = global.Promise;
 
-app.use(morgan('dev'));
+app.use(morgan('tiny'));
 app.use('/uploads',express.static('uploads'));  //add a midellware to make the folder uploads public for access in every where ( and display images in url) 
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
+// 3. Enable the Moesif middleware to start capturing incoming API Calls
+app.use(moesifMiddleware);
 
 
 //give access to any request incomming and witch headers are allowed
