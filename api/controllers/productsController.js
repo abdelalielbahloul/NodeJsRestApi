@@ -1,6 +1,7 @@
+require('dotenv').config();
 const Product = require('../models/product'); //import the model class of product
 const mongoose = require('mongoose');
-var url = 'http://localhost:3000/products';
+var url = `${process.env.BASE_URL}:${process.env.PORT}/products`;
 
 exports.index = (req, res, next) => {
 
@@ -13,7 +14,7 @@ exports.index = (req, res, next) => {
                         _id : doc._id,
                         name : doc.name,
                         price : doc.price,
-                        image : doc.productImage,
+                        image : `${process.env.BASE_URL}:${process.env.PORT}/${doc.productImage}`,
                         details:{
                             method: 'GET',
                             url: `${url}/${doc._id}`
