@@ -14,3 +14,5 @@ workflows:
     build-and-test:
       jobs:
         - build-and-test
+- name: Codecov
+  uses: codecov/codecov-action@v1.0.6
